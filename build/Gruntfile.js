@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    // grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -248,7 +248,8 @@ module.exports = function(grunt) {
                         ' * @license RequireJS 2.1.2 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.\n' +
                         ' * Available via the MIT or new BSD license.\n' +
                         ' * see: http://github.com/jrburke/requirejs for details\n' +
-                        ' */\n'
+                        ' */\n',
+                    sourceMap: true
                 },
                 build: {
                     src:  packageFile['requirejs']['min']['src'],
