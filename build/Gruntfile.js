@@ -90,7 +90,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    // grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -238,26 +237,7 @@ module.exports = function(grunt) {
     doRegisterTask('es6-promise');
     doRegisterTask('jszip');
     doRegisterTask('jsziputils');
-    doRegisterTask('requirejs', function(defaultConfig, packageFile) {
-        return {
-            uglify: {
-                pkg: packageFile,
-
-                options: {
-                    banner: '/** vim: et:ts=4:sw=4:sts=4\n' +
-                        ' * @license RequireJS 2.1.2 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.\n' +
-                        ' * Available via the MIT or new BSD license.\n' +
-                        ' * see: http://github.com/jrburke/requirejs for details\n' +
-                        ' */\n',
-                    sourceMap: true
-                },
-                build: {
-                    src:  packageFile['requirejs']['min']['src'],
-                    dest: packageFile['requirejs']['min']['dest']
-                }
-            }
-        }
-    });
+    doRegisterTask('requirejs');
 
     grunt.registerTask('prebuild-icons-sprite', function() {
         require('./sprites/Gruntfile.js')(grunt, '../');
@@ -395,21 +375,11 @@ module.exports = function(grunt) {
     grunt.registerTask('deploy-reporter', function(){
         grunt.initConfig({
             pkg: packageFile,
-            uglify: {
-                options: {
-                    banner: copyright
-                },
-                build: {
-                    files: {
-                        "<%= pkg.main.reporter.uglify.dest %>": packageFile.main.reporter.uglify.src
-                    }
-                }
-            },
             copy: packageFile.main.reporter.copy
         });
 
 
-        grunt.task.run(['uglify', 'copy']);
+        grunt.task.run(['copy']);
     });
 
     grunt.registerTask('mobile-app-init', function() {
@@ -486,7 +456,7 @@ module.exports = function(grunt) {
                         .concat(packageFile['mobile']['copy']['images-common'])
                 }
             },
-            
+
             replace: {
                 writeVersion: {
                     src: ['<%= pkg.mobile.js.requirejs.options.out %>'],
@@ -518,6 +488,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('embed-app-init', function() {
+        console.log('embed-app-init, packageFile=', JSON.stringify(packageFile, null, 2))
         grunt.initConfig({
             pkg: packageFile,
 
@@ -528,17 +499,6 @@ module.exports = function(grunt) {
                 postbuild: packageFile['embed']['clean']['postbuild'],
                 prebuild: packageFile['embed']['clean']['prebuild']
             },
-
-            uglify: {
-                options: {
-                    banner: copyright
-                },
-                build: {
-                    src: packageFile['embed']['js']['src'],
-                    dest: packageFile['embed']['js']['dist']
-                }
-            },
-
             less: {
                 production: {
                     options: {
@@ -591,20 +551,20 @@ module.exports = function(grunt) {
     grunt.registerTask('deploy-bootstrap',              ['bootstrap-init', 'clean', 'copy']);
     grunt.registerTask('deploy-jszip',                  ['jszip-init', 'clean', 'copy']);
     grunt.registerTask('deploy-jsziputils',             ['jsziputils-init', 'clean', 'copy']);
-    grunt.registerTask('deploy-requirejs',              ['requirejs-init', 'clean', 'uglify']);
+    grunt.registerTask('deploy-requirejs',              ['requirejs-init', 'clean']);
     grunt.registerTask('deploy-es6-promise',            ['es6-promise-init', 'clean', 'copy']);
 
     grunt.registerTask('deploy-app-main',               ['prebuild-icons-sprite', 'main-app-init', 'clean:prebuild', 'imagemin', 'less',
-                                                            'requirejs', 'concat', 'copy', 'svgmin', 'inline:index-page', 'inline:old-loader-page', 'json-minify',
+                                                            'requirejs', 'concat', 'copy', 'svgmin', 'inline:index-page', 'inline:old-loader-page',
                                                             'replace:writeVersion', 'replace:prepareHelp', 'clean:postbuild']);
 
     grunt.registerTask('deploy-app-mobile',             ['mobile-app-init', 'clean:deploy', 'cssmin', 'copy:template-backup',
                                                             'htmlmin', 'requirejs', 'concat', 'copy:template-restore',
                                                             'clean:template-backup', 'copy:localization', 'copy:index-page',
-                                                            'copy:images-app', 'json-minify',
+                                                            'copy:images-app',
                                                             'replace:writeVersion', 'replace:fixResourceUrl']);
 
-    grunt.registerTask('deploy-app-embed',              ['embed-app-init', 'clean:prebuild', 'uglify', 'less', 'copy', 
+    grunt.registerTask('deploy-app-embed',              ['embed-app-init', 'clean:prebuild', 'less', 'copy',
                                                             'clean:postbuild']);
 
     doRegisterInitializeAppTask('common',               'Common',               'common.json');
@@ -629,7 +589,7 @@ module.exports = function(grunt) {
     grunt.registerTask('deploy-spreadsheeteditor-component',  ['init-build-spreadsheeteditor', 'deploy-app']);
     grunt.registerTask('deploy-presentationeditor-component', ['init-build-presentationeditor', 'deploy-app']);
     // This task is called from the Makefile, don't delete it.
-    grunt.registerTask('deploy-documents-component',          ['deploy-common-component']);   
+    grunt.registerTask('deploy-documents-component',          ['deploy-common-component']);
 
     grunt.registerTask('deploy-documenteditor',     ['deploy-common-component', 'deploy-documenteditor-component']);
     grunt.registerTask('deploy-spreadsheeteditor',  ['deploy-common-component', 'deploy-spreadsheeteditor-component']);
