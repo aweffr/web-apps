@@ -52,6 +52,7 @@ define([
     'use strict';
 
     SSE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
+        window.appMain = this;
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
 

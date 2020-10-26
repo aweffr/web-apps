@@ -59,6 +59,7 @@ define([
     'use strict';
 
     SSE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
+        window.appMain = this;
         var InitApplication = -254;
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
@@ -1357,7 +1358,7 @@ define([
                     case Asc.c_oAscError.ID.LockedWorksheetRename:
                         config.msg = this.errorLockedWorksheetRename;
                         break;
-                    
+
                     case Asc.c_oAscError.ID.OpenWarning:
                         config.msg = this.errorOpenWarning;
                         break;
@@ -1635,7 +1636,7 @@ define([
                         promise = this.getApplication().getController('Common.Controllers.Plugins').applyUICustomization();
                     }
                 }
-                
+
                 this.stackLongActions.pop({id: InitApplication, type: Asc.c_oAscAsyncActionType.BlockInteraction});
                 Common.NotificationCenter.trigger('layout:changed', 'main');
 
@@ -1872,7 +1873,7 @@ define([
                 });
                 artStore.reset(arr);
             },
-            
+
             updateThemeColors: function() {
                 var me = this;
                 setTimeout(function(){

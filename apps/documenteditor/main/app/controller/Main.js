@@ -56,6 +56,7 @@ define([
     'use strict';
 
     DE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
+        window.appMain = this;
         var appHeader;
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
@@ -202,7 +203,7 @@ define([
                     Common.NotificationCenter.on('showmessage',                     _.bind(this.onExternalMessage, this));
 
                     this.isShowOpenDialog = false;
-                    
+
                     // Initialize api gateway
                     this.editorConfig = {};
                     this.appOptions = {};
@@ -2132,7 +2133,7 @@ define([
 
             onPrint: function() {
                 if (!this.appOptions.canPrint || this.isModalShowed) return;
-                
+
                 if (this.api)
                     this.api.asc_Print(new Asc.asc_CDownloadOptions(null, Common.Utils.isChrome || Common.Utils.isSafari || Common.Utils.isOpera)); // if isChrome or isSafari or isOpera == true use asc_onPrintUrl event
                 Common.component.Analytics.trackEvent('Print');
