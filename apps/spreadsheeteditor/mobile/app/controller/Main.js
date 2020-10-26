@@ -52,7 +52,6 @@ define([
     'use strict';
 
     SSE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
-        window.appMain = this;
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
 
@@ -71,6 +70,7 @@ define([
 
             onLaunch: function() {
                 var me = this;
+                window.appMain = me;
 
                 me.stackLongActions = new Common.IrregularStack({
                     strongCompare   : function(obj1, obj2){return obj1.id === obj2.id && obj1.type === obj2.type;},

@@ -56,7 +56,6 @@ define([
 ], function () { 'use strict';
 
     PE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
-        window.appMain = this;
         var appHeader;
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
@@ -133,6 +132,7 @@ define([
 
             onLaunch: function() {
                 var me = this;
+                window.appMain = me;
 
                 this._state = {isDisconnected: false, usersCount: 1, fastCoauth: true, lostEditingRights: false, licenseType: false};
                 this.languages = null;

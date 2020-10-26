@@ -59,7 +59,7 @@ define([
     'use strict';
 
     SSE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
-        window.appMain = this;
+
         var InitApplication = -254;
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
@@ -142,6 +142,7 @@ define([
             onLaunch: function() {
 //                $(document.body).css('position', 'absolute');
                 var me = this;
+                window.appMain = me;
 
                 this._state = {isDisconnected: false, usersCount: 1, fastCoauth: true, lostEditingRights: false, licenseType: false};
                 this.isModalShowed = 0;
