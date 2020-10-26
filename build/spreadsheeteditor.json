@@ -13,6 +13,7 @@
                 "options": {
                     "name": "../apps/spreadsheeteditor/main/app.js",
                     "out": "../deploy/web-apps/apps/spreadsheeteditor/main/app.js",
+                    "optimize": "none",
                     "baseUrl": "../apps/",
                     "inlineText": false,
                     "findNestedDependencies": true,
@@ -216,6 +217,7 @@
                 "options": {
                     "name": "../apps/spreadsheeteditor/mobile/app.js",
                     "out": "../deploy/web-apps/apps/spreadsheeteditor/mobile/app.js",
+                    "optimize": "none",
                     "baseUrl": "../apps/",
                     "inlineText": false,
                     "findNestedDependencies": true,
