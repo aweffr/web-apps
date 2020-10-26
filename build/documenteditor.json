@@ -13,6 +13,7 @@
                 "options": {
                     "name": "../apps/documenteditor/main/app.js",
                     "out": "../deploy/web-apps/apps/documenteditor/main/app.js",
+                    "optimize": "none",
                     "baseUrl": "../apps/",
                     "inlineText": true,
                     "findNestedDependencies": true,
@@ -211,6 +212,7 @@
                 "options": {
                     "name": "../apps/documenteditor/mobile/app.js",
                     "out": "../deploy/web-apps/apps/documenteditor/mobile/app.js",
+                    "optimize": "none",
                     "baseUrl": "../apps/",
                     "inlineText": true,
                     "findNestedDependencies": true,

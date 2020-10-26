@@ -13,6 +13,7 @@
                 "options": {
                     "name": "../apps/presentationeditor/main/app.js",
                     "out": "../deploy/web-apps/apps/presentationeditor/main/app.js",
+                    "optimize": "none",
                     "baseUrl": "../apps/",
                     "inlineText": true,
                     "findNestedDependencies": true,
@@ -214,6 +215,7 @@
                 "options": {
                     "name": "../apps/presentationeditor/mobile/app.js",
                     "out": "../deploy/web-apps/apps/presentationeditor/mobile/app.js",
+                    "optimize": "none",
                     "baseUrl": "../apps/",
                     "inlineText": true,
                     "findNestedDependencies": true,
